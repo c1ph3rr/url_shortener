@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>URL Shortener</title>
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    {% crispy form %}
+
+    {% if request.method == 'POST' %}
+        <div class="input-group mb-3 mt-4">
+            <input type="text" class="form-control" value="{{ model.get_url }}" id="copy-url" aria-describedby="button-addon2">
+            <button onclick="copyFunction()" class="btn btn-outline-secondary" type="button" id="copy-button">Copy link!</button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
