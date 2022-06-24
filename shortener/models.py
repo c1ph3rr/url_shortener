@@ -5,12 +5,13 @@ from django.urls import reverse
 
 class TinyModel(models.Model):
     url = models.URLField()
-    hash = models.CharField(max_length=200)
+    hash = models.CharField(max_length=200, unique=True)
     alias = models.CharField(max_length=200, null=True, blank=True)
+    short_url = models.URLField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.url}'
+        return self.url
 
     def get_url(self):
         url = reverse('redirect', kwargs={'hash': self.hash})
