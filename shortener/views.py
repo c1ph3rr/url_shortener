@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
-from django.template import RequestContext
 
 from .models import TinyModel
 from .forms import TinyForm
@@ -10,8 +9,10 @@ from .utils import Base62
 
 
 def index(request):
+    base62 = Base62()
+    base_url = 'http://' + request.META['HTTP_HOST'] + '/'
+
     if request.method == 'POST':
-        base62 = Base62()
         form = TinyForm(request.POST)
         if form.is_valid():
             url = form.cleaned_data['url']
@@ -24,7 +25,7 @@ def index(request):
                     'model': model[0]
                 })
             elif alias:
-                model = TinyModel.objects.create(url=url, hash=alias, alias=alias)
+                model = TinyModel.objects.create(url=url, hash=alias, alias=alias, short_url=base_url+alias)
                 model.save()
                 return render(request, 'shortener/index.html', {
                     'form': form,
@@ -36,7 +37,8 @@ def index(request):
                     hash = base62.encode_url(latest_id.id)
                 except:
                     hash = base62.encode_url(0)
-                model = TinyModel.objects.create(url=url, hash=hash)
+
+                model = TinyModel.objects.create(url=url, hash=hash, short_url=base_url+hash)
                 model.save()
                 return render(request, 'shortener/index.html', {
                     'form': form,
