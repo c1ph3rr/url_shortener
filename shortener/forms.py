@@ -10,7 +10,7 @@ class TinyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
-        self.helper.form_action = '/'
+        self.helper.form_action = ''
         self.helper.add_input(Submit('submit', 'Submit', css_class='mt-2'))
         self.helper.layout = Layout(
             Row(

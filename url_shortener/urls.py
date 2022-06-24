@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import shortener
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shortener.urls'))
+    path('api/', include('shortener.api.urls')),
+    path('ui/', include('shortener.urls')),
 ]
