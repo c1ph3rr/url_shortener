@@ -4,4 +4,4 @@ from .models import TinyModel
 
 # Register your models here.
 
-admin.site.register(TinyModel)
+# admin.site.register(TinyModel)
