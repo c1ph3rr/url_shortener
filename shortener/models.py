@@ -1,7 +1,9 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 # Create your models here.
+base_url = getattr(settings, 'ALLOWED_HOSTS')[0]
 
 class TinyModel(models.Model):
     url = models.URLField()
@@ -15,5 +17,5 @@ class TinyModel(models.Model):
 
     def get_url(self):
         url = reverse('redirect', kwargs={'hash': self.hash})
-        url = 'http://127.0.0.1:8000' + url
+        url = base_url + url
         return url 
