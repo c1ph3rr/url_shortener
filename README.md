@@ -17,7 +17,7 @@ Body <br>
   "url": "long_url"
 }
 ```
-#### Reponse
+#### Response
 ```json
 {
   "url": "long_url",
